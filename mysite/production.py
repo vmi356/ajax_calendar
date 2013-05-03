@@ -1,0 +1,2 @@
+
+from mysite.settings import *
