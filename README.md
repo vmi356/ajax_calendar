@@ -1,35 +1,38 @@
-django repository blueprint for students
-========================================
+ajax calendar
+=============
 
-Usage
+Запуск
 ------
 
-1. Download and unzip repository: https://github.com/vmi356/django_blueprint/archive/master.zip
-2. Bootstrap buildout: ``python bootstrap.py``
-3. Verify project settings in ``buildout.cfg``
-4. Run buildout: ``bin/buildout``
+1. **Склонировать** репозиторий: ``git://github.com/vmi356/ajax_calendar.git``
+2. Волшебное слово: ``python bootstrap.py``
+3. Волшебное слово: ``bin/buildout``
 
-**Don't forget to make an initial commit!**
+Используемые библиотеки и технологии
+-------------------------------------
 
-How to setup Pycharm IDE
--------------------------
+* Django
+* jQuery
+* twitter bootstrap
+* [Django-tastypie](http://tastypieapi.org/)
+* [jQuery fullCalendar](http://arshaw.com/fullcalendar/)
+* [JSON2.js для кодирования строк](https://github.com/douglascrockford/JSON-js)
 
-1. Open menu File > Settings > **buildout support**
+Как работает?
+-------------
 
-    check enable buildout support
+### Сервер:
 
-    enter path to ``bin/django``
+1. Создана схема данных, оформлена в виде [django app](https://github
+.com/vmi356/ajax_calendar/tree/master/mysite/events)
+2. Схема зарегистрирована в виде [REST API](https://github.com/vmi356/ajax_calendar/blob/master/mysite/events/api.py)
+, которое, в свою очередь зарегистрировано в [urlconf](https://github.com/vmi356/ajax_calendar/blob/master/mysite/events/urls.py)
+3. При загрузке в шаблоне [frontpage.html](https://github.com/vmi356/ajax_calendar/blob/master/mysite/templates/frontpage.html) подключаются доп. библиотеки,
+создается контейнер для календаря ``<div id="calendar"></div>``
 
-2. In settings, open **Django support**
+### Клиент
 
-    Set project root to folder where ``settings.py`` located
-
-3. In settings, open **python template languages**
-
-    Set template language to Django
-    Add template folders below
-
-4. Open menu Run > edit configurations
-
-    Add ``DJANGO_SETTINGS_MODULE=mysite.development`` to environment variables.
-
+4. Затем, в [main.js](https://github.com/vmi356/ajax_calendar/blob/master/mysite/media/js/main.js) после загрузки
+страницы инициализируется плагин
+5. Создается обработчик клика по дню в календаре
+6. Загуржаются все события с сервера
