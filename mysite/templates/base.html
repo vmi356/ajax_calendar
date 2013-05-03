@@ -45,11 +45,26 @@
                                 </ul>
                             </li>
                         </ul>
-                        <form class="navbar-form pull-right">
-                            <input class="span2" type="text" placeholder="Email">
-                            <input class="span2" type="password" placeholder="Password">
+                        {% if user.is_authenticated %}
+                            <ul class="pull-right nav">
+                                <li><a href="">Hello, {{ user.username }}!</a></li>
+                                <li>
+                                    <a href="/admin/logout?next=/">Log out</a>
+                                </li>
+                            </ul>
+
+                        {% else %}
+                        <form class="navbar-form pull-right" action="/admin/" method="POST">
+                            <input class="span2" type="text" placeholder="Username" name="username">
+                            <input class="span2" type="password" placeholder="Password" name="password">
+
+                            <input type="hidden" name="this_is_the_login_form" value="1">
+                            <input type="hidden" name="next" value="/">
+                            {% csrf_token %}
                             <button type="submit" class="btn">Sign in</button>
                         </form>
+
+                        {% endif %}
                 </div>
             </div>
         </div>
