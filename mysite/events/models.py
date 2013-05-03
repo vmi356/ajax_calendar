@@ -9,4 +9,4 @@ class Event(models.Model):
 
     start = models.DateTimeField()
     duration = models.IntegerField(verbose_name='Duration, in minutes')
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, null=True, blank=True)
