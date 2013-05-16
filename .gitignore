@@ -6,3 +6,5 @@ parts
 .installed.cfg
 *.db
 *.sqlite
+*.pyc
+*.idea
