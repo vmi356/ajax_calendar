@@ -104,7 +104,7 @@ TEMPLATE_DIRS = (
     join(PROJECT_ROOT, 'templates')
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -114,7 +114,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'tastypie',
     'mysite.events',
-)
+]
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
