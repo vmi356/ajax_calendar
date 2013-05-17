@@ -6,7 +6,10 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/fullcalendar.js"></script>
 
     {% load assets %}
-    {% assets "js_all" %}
+    {% assets "events" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% assets "templates" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 {% endblock %}

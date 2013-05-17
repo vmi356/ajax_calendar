@@ -8,3 +8,4 @@ parts
 *.sqlite
 *.pyc
 *.idea
+mysite/static/*
