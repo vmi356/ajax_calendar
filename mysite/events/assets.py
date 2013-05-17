@@ -11,8 +11,3 @@ register(
     'templates',
     Bundle('events/templates/*.hbs', output='assets/templates.js', filters='handlebars')
 )
-
-register(
-    'style',
-     Bundle('events/style/*.less', output='assets/style.css', filters='less')
-)
