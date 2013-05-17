@@ -2,7 +2,8 @@
 (function ($) {
     $(function () {
         var Event = Backbone.Tastypie.Model.extend({
-            urlRoot: '/api/v1/event/'
+            urlRoot: '/api/v1/event/',
+            idAttribute: 'id'
         });
 
         var EventCollection = Backbone.Tastypie.Collection.extend({
