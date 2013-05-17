@@ -19,6 +19,10 @@
             },
             render: function() {
                 var template = Handlebars.templates[this.template];
+                if (!template){
+                    console.error('Template not found', this.template);
+                    return;
+                }
                 this.$el.html(template(this.getContext()));
                 this.trigger('render');
                 return this;
@@ -38,18 +42,60 @@
         });
 
 
-        var MonthView = TemplateView.extend({
-            template: 'month.hbs',
-            events: {
-                'click .next': 'nextDay',
-                'click .prev': 'prevDay'
-            },
+        var NewsListView = TemplateView.extend({
+            template: 'news_list.hbs',
             initialize: function() {
                 TemplateView.prototype.initialize.call(this);
                 this.collection.on('sync', this.render, this);
+            }
+        });
+
+        var PagerView = TemplateView.extend({
+            template: 'pager.hbs',
+            events: {
+                'click li.next a': 'next',
+                'click li.previous a': 'prev'
             },
-            nextDay: function() {
-                debugger;
+            initialize: function() {
+                TemplateView.prototype.initialize.call(this);
+                this.model.on('change', this.render, this);
+
+                this.listView = new NewsListView({
+                    collection: new EventCollection()
+                });
+            },
+            onRender: function() {
+                this.listView.setElement(this.$el.find('.news'));
+                this.listView.collection.fetch({data: {
+                    'date__gt': this.model.get('start'),
+                    'date__lt': this.model.get('end')
+                }});
+            },
+            next: function() {
+                var end = this.model.get('end'),
+                    start = this.model.get('start'),
+                    range = moment.duration(moment(end) - moment(start)).asDays();
+
+                this.model.set({
+                    start: moment(start).add('days', range).format(),
+                    end: moment(end).add('days', range).format()
+                });
+            },
+            prev: function() {
+                var end = this.model.get('end'),
+                    start = this.model.get('start'),
+                    range = moment.duration(moment(end) - moment(start)).asDays();
+
+                this.model.set({
+                    start: moment(start).subtract('days', range).format(),
+                    end: moment(end).subtract('days', range).format()
+                });
+            },
+            getContext: function() {
+                var json = TemplateView.prototype.getContext.call(this);
+                json.startDisplay = moment(json.start).format('LL');
+                json.endDisplay = moment(json.end).format('LL');
+                return json;
             }
         });
 
@@ -66,19 +112,18 @@
                     start = moment(date).date(0);
                     end = moment(date).add('days', 1);
                 } else {
-                    start = moment().date(0)
+                    start = moment().date(0);
                     end = moment().add('month', 1);
                 }
-                var view = new MonthView({
-                    collection: new EventCollection(),
+
+                var view = new PagerView({
+                    model: new Backbone.Model({
+                        start: start.format(),
+                        end: end.format()
+                    }),
                     el: $(".content")
                 });
                 view.render();
-                view.collection.filters = {
-                    'date__gt': start.format(),
-                    'date__lt': end.format()
-                };
-                view.collection.fetch();
             }
         });
 
