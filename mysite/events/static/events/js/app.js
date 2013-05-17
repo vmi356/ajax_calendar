@@ -19,12 +19,12 @@
                 }
             },
             render: function() {
-                var template = Handlebars.templates[this.template];
-                if (!template){
+                var template = $('#' + this.template);
+                if (!template.length){
                     console.error('Template not found', this.template);
                     return;
                 }
-                this.$el.html(template(this.getContext()));
+                this.$el.html(Handlebars.compile(template.html())(this.getContext()));
                 this.trigger('render');
                 return this;
             },
@@ -44,7 +44,7 @@
 
 
         var NewsListView = TemplateView.extend({
-            template: 'news_list.hbs',
+            template: 'news_list',
             initialize: function() {
                 TemplateView.prototype.initialize.call(this);
                 this.collection.on('sync', this.render, this);
@@ -52,7 +52,7 @@
         });
 
         var PagerView = TemplateView.extend({
-            template: 'pager.hbs',
+            template: 'pager',
             events: {
                 'click li.next a': 'next',
                 'click li.previous a': 'prev'

@@ -115,7 +115,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'tastypie',
     'mysite.events',
-    'django_assets',
 ]
 
 # A sample logging configuration. The only tangible logging

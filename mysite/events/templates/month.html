@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-
+{% load include_raw %}
 {% block bottomjs %}
     {{ block.super }}
-    {% load assets %}
-    {% assets "events" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    {% assets "templates" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/vendor/underscore.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/vendor/backbone.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/vendor/json2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/vendor/handlebars.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/vendor/moment.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/lib/backbone-tastypie.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}events/js/app.js"></script>
+
+    <script id="news_list" type="text/x-handlebars-template">
+        {% include_raw 'handlebars/news_list.hbs' %}
+    </script>
+    <script id="pager" type="text/x-handlebars-template">
+        {% include_raw 'handlebars/pager.hbs' %}
+    </script>
 {% endblock %}
 
 {% block content %}
