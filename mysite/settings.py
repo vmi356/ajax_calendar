@@ -77,6 +77,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django_assets.finders.AssetsFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -114,6 +115,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'tastypie',
     'mysite.events',
+    'django_assets',
 ]
 
 # A sample logging configuration. The only tangible logging
