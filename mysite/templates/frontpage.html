@@ -2,16 +2,9 @@
 
 {% block bottomjs %}
     {{ block.super }}
+    <script src="{{ STATIC_URL }}js/main.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/json2.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/fullcalendar.js"></script>
-
-    {% load assets %}
-    {% assets "events" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-    {% assets "templates" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
 {% endblock %}
 
 {% block css %}

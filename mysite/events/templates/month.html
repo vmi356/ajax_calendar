@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block bottomjs %}
+    {{ block.super }}
+    {% load assets %}
+    {% assets "events" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% assets "templates" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    {% assets "style" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
+
+{% block content %}
+    <div class="content"></div>
+{% endblock %}
